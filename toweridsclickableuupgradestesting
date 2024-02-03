@@ -1,0 +1,17 @@
+local workspace = game:GetService("Workspace")
+local towers = workspace.Towers
+local function addClickableText(tower)
+    local textButton = Instance.new("TextButton")
+    textButton.Size = UDim2.new(0, 50, 0, 20)
+    textButton.Position = UDim2.new(0.5, -25, 0, 0) -- Adjust as needed
+    textButton.Text = tower.Name
+    textButton.TextScaled = true
+    textButton.Parent = tower
+    textButton.MouseButton1Click:Connect(function()
+        workspace:WaitForChild("UpgradeTower"):InvokeServer(tower.Name)
+    end)
+end
+for _, tower in ipairs(towers:GetChildren()) do
+    addClickableText(tower)
+end
+towers.ChildAdded:Connect(addClickableText)
